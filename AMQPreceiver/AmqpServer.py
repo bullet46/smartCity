@@ -92,5 +92,8 @@ class AmqpClient(MessagingHandler):
         self.update.receive_new_message(content)
         event.receiver.flow(1)
 
-
-Container(AmqpClient()).run()
+try:
+    Container(AmqpClient()).run()
+except Exception as e:
+    logging.error(e)
+    Container(AmqpClient()).run()
