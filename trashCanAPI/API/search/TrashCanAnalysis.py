@@ -105,11 +105,15 @@ class TrashCanFound:
         max_id = self.statistic_all_device()
         all_info = {}
         for i in range(1, max_id+1):
-            all_info.update(
-                {
-                    str(i): self.find_single_trash_info(device_id=i)
-                }
-            )
+            try:
+                all_info.update(
+                    {
+                        str(i): self.find_single_trash_info(device_id=i)
+                    }
+                )
+            except Exception as e:
+                logging.error(e)
+                pass
         return all_info
 
     def find_state_trash_by_date(self, date: str, device_id: int):
@@ -172,11 +176,15 @@ class TrashCanFound:
         max_id = self.statistic_all_device()
         all_trash_state = {}
         for id in range(1,max_id+1):
-            all_trash_state.update(
-                {
-                    str(id): self.find_single_trash_now(device_id=id)
-                }
-            )
+            try:
+                all_trash_state.update(
+                    {
+                        str(id): self.find_single_trash_now(device_id=id)
+                    }
+                )
+            except Exception as e:
+                logging.error(e)
+                pass
         return all_trash_state
 
 
