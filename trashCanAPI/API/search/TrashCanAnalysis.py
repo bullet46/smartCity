@@ -154,15 +154,15 @@ class TrashCanFound:
         single_data = {}
         single_data.update(
             {
-                "message_id":result[0][0],
                 "time": str(result[0][1]),
-                "device_name": result[0][2],
-                "temperature": result[0][3],
-                "humidity": result[0][4],
-                "recyclable": result[0][5],
-                "kitchen_distance": result[0][6],
-                "others_distance": result[0][7],
-                "harmful_distance": result[0][8],
+                "device_id":result[0][2],
+                "device_name": result[0][3],
+                "temperature": result[0][4],
+                "humidity": result[0][5],
+                "recyclable": result[0][6],
+                "kitchen_distance": result[0][7],
+                "others_distance": result[0][8],
+                "harmful_distance": result[0][9],
                 "geo_location": result[0][10]
             }
         )
