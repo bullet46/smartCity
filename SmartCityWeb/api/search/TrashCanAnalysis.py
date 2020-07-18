@@ -1,7 +1,6 @@
 import datetime
 import logging
 import re
-
 import pymysql
 
 
@@ -124,17 +123,21 @@ class TrashCanFound:
         :return:data : dict ，格式例如{"22:00:14":[15,13,15,17]} 值所对应的list表示 其它垃圾:可回收:厨余垃圾:有害垃圾距顶高度
         """
         cursor = self.db_trash_data.cursor()
+        date_list = date.split('-')
+        print(date_list)
+        datel = datetime.date(int(date_list[0]),int(date_list[1]),int(date_list[2]))
+        date = str(datel.strftime('%Y-%m-%d'))
         trash_date = 'trash_date_' + str(date.replace('-', '_'))
         cursor.execute("""
             select * from {trash_date} where device_id ={device_id};
         """.format(trash_date=trash_date, device_id=device_id))
         result = cursor.fetchall()
         data = {}
+
         for i in range(len(result)):
             time = str(result[i][1]).split(' ')[1]
-            space = map(int,[result[i][8], result[i][6], result[i][7], result[i][9],result[i][4],result[i][5]])
-
-            data.update({time: space})
+            space_start = [result[i][8], result[i][6], result[i][7], result[i][9], result[i][4], result[i][5]]
+            data.update({time: space_start})
         logging.info(data)
         return data
 

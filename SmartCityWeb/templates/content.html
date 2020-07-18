@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>trash_content</title>
+    <!--  调用static  -->
+    {% load static %}
     <!-- 引入 echarts.js -->
-    <script src="js/echarts.js"></script>
-    <script src="js/echarts_theme.js"></script>
+    <script src="{% static 'js/echarts.js' %}"></script>
+    <script src="{% static 'js/echarts_theme.js' %}"></script>
     <!-- 引入jQuery -->
-    <script src="js/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <!--  引入css样式表  -->
-    <link rel="stylesheet" type="text/css" href="css/content.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/content.css' %}">
     <link>
 </head>
 
 <body>
 <div class="box">
     <div class="trash_can_info" id="other_can">
-        <img class="trash_can_img" src="icons/trash_20.png">
+        <img class="trash_can_img" src="{% static 'icons/trash_20.png' %} ">
         <p>20%</p>
     </div>
     <div class="trash_can_info" id="recover_can">
-        <img class="trash_can_img" src="icons/trash_40.png">
+        <img class="trash_can_img" src="{% static 'icons/trash_40.png' %}">
         <p>40%</p>
     </div>
     <div class="trash_can_info" id="kitchen_can">
-        <img class="trash_can_img" src="icons/trash_60.png">
+        <img class="trash_can_img" src="{% static 'icons/trash_60.png' %}">
         <p>60%</p>
     </div>
     <div class="trash_can_info" id="harm_can">
-        <img class="trash_can_img" src="icons/trash_100.png">
+        <img class="trash_can_img" src="{% static 'icons/trash_100.png' %}">
         <p>80%</p>
     </div>
 </div>
@@ -46,15 +48,16 @@
 
 <p></p>
 <!-- 引入公用函数模块 -->
-<script type="text/javascript" src="js/function_lib.js"></script>
+<script type="text/javascript" src="{% static 'js/function_lib.js'%}"></script>
 <!-- 引入绘图函数 -->
-<script type="text/javascript" src="js/chart_graph.js"></script>
+<script type="text/javascript" src="{% static 'js/chart_graph.js' %}"></script>
 
 
 
 <script type="text/javascript">
     $(function(){
-        get_init_data(1)
+        console.log(get_init_data(1));
+        chart_recommend();
     });
 </script>
 

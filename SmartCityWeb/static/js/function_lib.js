@@ -23,17 +23,23 @@ function get_init_data(id, date = null) {
     if (date == null) {
         date = get_today_date();
     }
-        var file_in = new XMLHttpRequest();
-        var data_in = []
-        console.log(file_in.responseText)
-        file_in.open('GET',
-            'http://127.0.0.1/API/?device_data_search_by_day={"device_id":{0},"date":"{1}"}'.format(id,date),
-            false)
-        file_in.send(null)
-        if (file_in.readyState == 4 && file_in.status == 200) {
-            // 接收服务器端的数据
-            console.log(file_in.responseText)
-            return data_in;
+    var file_in = new XMLHttpRequest();
+
+    file_in.open('GET',
+        'http://127.0.0.1/API/?device_data_search_by_day={"device_id":{0},"date":"{1}"}'.format(id, date),
+        false)
+    file_in.send(null)
+    if (file_in.readyState == 4 && file_in.status == 200) {
+        // 接收服务器端的数据
+        if (file_in == 'None') {
+            return null;
+        } else {
+            var data_back = JSON.parse(file_in.responseText)
+            for (var k in data_back) {
+                console.log(k);
+            }
+            return data_back;
         }
+
+    }
 }
-console.log(get_init_data(1))

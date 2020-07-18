@@ -104,7 +104,8 @@ function chart_state_history() {
                     var result = params[0].value[0];
                     params.forEach(function (item) {
                         result += '<br/>';
-                        result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+                        result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;' +
+                            'height:9px;background-color:' + item.color + '"></span>';
                         result += item.seriesName + "：";
                         result += isNaN(item.value[1]) ? 0 : (item.value[1] / 1).toFixed(2) + "%";
                     });
