@@ -104,7 +104,7 @@ class TrashCanFound:
         """
         max_id = self.statistic_all_device()
         all_info = {}
-        for i in range(1, max_id+1):
+        for i in range(1, max_id + 1):
             try:
                 all_info.update(
                     {
@@ -132,7 +132,8 @@ class TrashCanFound:
         data = {}
         for i in range(len(result)):
             time = str(result[i][1]).split(' ')[1]
-            space = [result[i][8], result[i][6], result[i][7], result[i][9]]
+            space = map(int,[result[i][8], result[i][6], result[i][7], result[i][9],result[i][4],result[i][5]])
+
             data.update({time: space})
         logging.info(data)
         return data
@@ -154,8 +155,9 @@ class TrashCanFound:
         single_data = {}
         single_data.update(
             {
+                "message_id": result[0][0],
                 "time": str(result[0][1]),
-                "device_id":result[0][2],
+                "device_id": result[0][2],
                 "device_name": result[0][3],
                 "temperature": result[0][4],
                 "humidity": result[0][5],
@@ -175,7 +177,7 @@ class TrashCanFound:
         """
         max_id = self.statistic_all_device()
         all_trash_state = {}
-        for id in range(1,max_id+1):
+        for id in range(1, max_id + 1):
             try:
                 all_trash_state.update(
                     {
@@ -186,8 +188,6 @@ class TrashCanFound:
                 logging.error(e)
                 pass
         return all_trash_state
-
-
 
 
 if __name__ == '__main__':

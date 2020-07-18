@@ -38,15 +38,19 @@ class TrashCanShow(TrashCanAnalysis.TrashCanFound):
             return self.find_all_trash_now()
 
         elif message.find('device_data_search_by_day=') == 0:
-            # 这里应该输入id以及日期，{'device_id' : 54, "date" : "2020-07-07"}}
+            # 这里应该输入id以及日期
+            # device_data_search_by_day={"device_id":1,"date":"2020-07-18"}
             message = message.split('=')
+
             try:
+                message[1] = message[1].replace("'", '"')
                 result = json.loads(message[1])
                 return self.find_state_trash_by_date(date=result['date'], device_id=int(result['device_id']))
             except:
                 return None
         else:
             return None
+
 
 if __name__ == '__main__':
     trash = TrashCanShow()

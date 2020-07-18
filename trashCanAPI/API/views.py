@@ -13,6 +13,6 @@ def index(request):
         message = unquote(info,encoding='utf-8')
         print(message)
         trash = core_search.TrashCanShow()
-        return HttpResponse(str(trash.trash_message(message)))
+        return HttpResponse(str(trash.trash_message(message)).replace("'",'"'))
     except:
         return HttpResponse('None')
