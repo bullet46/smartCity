@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>trash_content</title>
+    <!-- 引入 echarts.js -->
+    <script src="js/echarts.js"></script>
+    <script src="js/echarts_theme.js"></script>
+    <!-- 引入jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!--  引入css样式表  -->
+    <link rel="stylesheet" type="text/css" href="css/content.css">
+    <link>
+</head>
+
+<body>
+<div class="box">
+    <div class="trash_can_info" id="other_can">
+        <img class="trash_can_img" src="icons/trash_20.png">
+        <p>20%</p>
+    </div>
+    <div class="trash_can_info" id="recover_can">
+        <img class="trash_can_img" src="icons/trash_40.png">
+        <p>40%</p>
+    </div>
+    <div class="trash_can_info" id="kitchen_can">
+        <img class="trash_can_img" src="icons/trash_60.png">
+        <p>60%</p>
+    </div>
+    <div class="trash_can_info" id="harm_can">
+        <img class="trash_can_img" src="icons/trash_100.png">
+        <p>80%</p>
+    </div>
+</div>
+<p></p>
+<div class="box" style="height: 300px">
+    <div id="recommend_space" style="height: 430px;width : 300px;"></div>
+</div>
+<p></p>
+
+<p></p>
+<div class="box" style="height: 400px;">
+    <div id="data_trans" style="height: 430px;width:320px;"></div>
+</div>
+<p></p>
+
+<p></p>
+<!-- 引入公用函数模块 -->
+<script type="text/javascript" src="js/function_lib.js"></script>
+<!-- 引入绘图函数 -->
+<script type="text/javascript" src="js/chart_graph.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        get_init_data(1)
+    });
+</script>
+
+</body>
+</html>
