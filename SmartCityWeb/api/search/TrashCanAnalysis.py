@@ -1,6 +1,8 @@
 import datetime
+import json
 import logging
 import re
+
 import pymysql
 
 
@@ -83,6 +85,11 @@ class TrashCanFound:
         else:
             return None
         result = cursor.fetchall()
+        try:
+            geolocation = json.loads(result[0][7].replace("'", '"'))
+        except Exception as e:
+            logging.error(e)
+            geolocation = str(result[0][7])
         info.update(
             {
                 "device_id": result[0][0],
@@ -91,9 +98,11 @@ class TrashCanFound:
                 "device_space_now": result[0][3],
                 "device_space_recommend": result[0][4],
                 "recovery_time": result[0][5],
-                "can_height": result[0][6]
+                "can_height": result[0][6],
+                "geo_location": geolocation
             }
         )
+        print(info)
         return info
 
     def find_all_trash_info(self):
@@ -125,7 +134,7 @@ class TrashCanFound:
         cursor = self.db_trash_data.cursor()
         date_list = date.split('-')
         print(date_list)
-        datel = datetime.date(int(date_list[0]),int(date_list[1]),int(date_list[2]))
+        datel = datetime.date(int(date_list[0]), int(date_list[1]), int(date_list[2]))
         date = str(datel.strftime('%Y-%m-%d'))
         trash_date = 'trash_date_' + str(date.replace('-', '_'))
         cursor.execute("""
@@ -135,7 +144,7 @@ class TrashCanFound:
         data = {}
 
         for i in range(len(result)):
-            time = str(result[i][1]).split(' ')[1]
+            time = str(result[i][1])
             space_start = [result[i][8], result[i][6], result[i][7], result[i][9], result[i][4], result[i][5]]
             data.update({time: space_start})
         logging.info(data)
@@ -167,8 +176,7 @@ class TrashCanFound:
                 "recyclable": result[0][6],
                 "kitchen_distance": result[0][7],
                 "others_distance": result[0][8],
-                "harmful_distance": result[0][9],
-                "geo_location": result[0][10]
+                "harmful_distance": result[0][9]
             }
         )
         return single_data
