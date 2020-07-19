@@ -7,6 +7,24 @@ function get_today_date() {
     return year + "-" + month + "-" + day
 }
 
+function get_now_time() {
+    var now = new Date();
+    var day = get_today_date()
+    var hh = now.getHours();            //时
+    var mm = now.getMinutes();          //分
+    var ss = now.getSeconds();
+    return day + ' ' + hh + ':' + mm + ':' + ss
+}
+
+function str_to_percent(values) {
+    try {
+        return (1 - parseFloat(values) / 10) * 100
+    } catch (err) {
+        return null
+    }
+
+}
+
 function convert_date(dateString) {
     //时间字符串转日期
     if (dateString) {
@@ -64,8 +82,8 @@ function get_new_data(device_id) {
             return null;
         } else {
             var data_back = JSON.parse(data_new.responseText)
-            data_back_list = [data_back['time'], data_back['others_distance'], data_back['recyclable'],
-                data_back['kitchen_distance'], data_back['harmful_distance'], data_back['temperature'], data_back['humidity']]
+            data_back_list = [data_back['time'], str_to_percent(data_back['others_distance']), str_to_percent(data_back['recyclable']),
+                str_to_percent(data_back['kitchen_distance']), str_to_percent(data_back['harmful_distance']), data_back['temperature'], data_back['humidity']]
             return data_back_list;
         }
     }
@@ -83,18 +101,18 @@ function get_element_by_data(data) {
     humidity_l = []
     for (keys in data) {
         var key_str = keys
-        others_distance_l.push([key_str, data[key_str][0]]);
-        recyclable_l.push([key_str, data[key_str][1]]);
-        kitchen_distance_l.push([key_str, data[key_str][2]]);
-        harmful_distance_l.push([key_str, data[key_str][3]]);
+        others_distance_l.push([key_str, str_to_percent(data[key_str][0])]);
+        recyclable_l.push([key_str, str_to_percent(data[key_str][1])]);
+        kitchen_distance_l.push([key_str, str_to_percent(data[key_str][2])]);
+        harmful_distance_l.push([key_str, str_to_percent(data[key_str][3])]);
         temperature_l.push([key_str, data[key_str][4]]);
         humidity_l.push([key_str, data[key_str][5]]);
     }
     dict_back = {
-        others_distance: others_distance_l,
+        others: others_distance_l,
         recyclable: recyclable_l,
-        kitchen_distance: kitchen_distance_l,
-        harmful_distance: harmful_distance_l,
+        kitchen: kitchen_distance_l,
+        harmful: harmful_distance_l,
         temperature: temperature_l,
         humidity: humidity_l
     }

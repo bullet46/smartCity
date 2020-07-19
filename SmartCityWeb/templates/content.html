@@ -45,7 +45,9 @@
     <div id="data_trans" style="height: 430px;width:320px;"></div>
 </div>
 <p></p>
-
+<div class="box" style="height: 400px">
+    <div id="th_trans" style="height: 430px;width : 320px;"></div>
+</div>
 <p></p>
 <!-- 引入公用函数模块 -->
 <script type="text/javascript" src="{% static 'js/function_lib.js'%}"></script>
@@ -56,8 +58,9 @@
 
 <script type="text/javascript">
     $(function(){
-        chart_of_trash(2)
-
+        chart_recommend([15,45,20,10])
+        chart_of_trash(1);
+        chart_th_history(1)
     });
 </script>
 
