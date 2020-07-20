@@ -335,8 +335,8 @@ function chart_th_history(device_id) {
         // 刷新并更新数据
         new_data = get_new_data(device_id);
         last_state_time = get_now_time();
-        data_now['temperature'].push([last_state_time, new_data[4]]);
-        data_now['humidity'].push([last_state_time, new_data[5]]);
+        data_now['temperature'].push([last_state_time, new_data[5]]);
+        data_now['humidity'].push([last_state_time, new_data[6]]);
         chart.setOption({
                 series: [{
                     data: data_now['temperature']
@@ -384,4 +384,10 @@ function chart_recommend(recommends) {
             }]
     }
     chart_recommend.setOption(option);
+}
+
+function now_state(device_id) {
+    var now_data = get_new_data(device_id)
+
+
 }

@@ -18,7 +18,13 @@ function get_now_time() {
 
 function str_to_percent(values) {
     try {
-        return (1 - parseFloat(values) / 10) * 100
+        percents = (1 - parseFloat(values) / 10) * 100
+        if (percents <0){
+            return 0
+        }else{
+            return percents
+        }
+
     } catch (err) {
         return null
     }
@@ -117,4 +123,30 @@ function get_element_by_data(data) {
         humidity: humidity_l
     }
     return dict_back
+}
+
+function get_all_data_now() {
+    //通过接口获取目前所有设备的最新状态
+    var data_init = new XMLHttpRequest();
+    data_init.open('GET',
+        'http://127.0.0.1/API/?device_data_all_now',
+        false)
+    data_init.send(null)
+    if (data_init.readyState == 4 && data_init.status == 200) {
+        // 接收服务器端的数据
+        if (data_init.responseText == 'None' || data_init.responseText == '{}') {
+            return null;
+        } else {
+            var data_back = JSON.parse(data_init.responseText)
+            return data_back;
+        }
+    }
+}
+
+function reform_data_now(data_now) {
+    // 提取所有设备的最新状态
+    for (keys in data_now){
+
+    }
+
 }
