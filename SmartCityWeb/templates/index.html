@@ -10,12 +10,16 @@
     <!--  高德地图相关控件  -->
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
-    <script src="https://webapi.amap.com/maps?v=1.4.15&key=4538550d34f654818e8787060fe9bb16&plugin=Map3D,ElasticMarker"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=4538550d34f654818e8787060fe9bb16&plugin=Map3D,ElasticMarker&plugin=AMap.ControlBar"></script>
 
 
 </head>
 <body>
-<div id="container"></div>
+<div id="container" >
+<div id="info_windows_container">
+
+</div>
+</div>
 <!-- 引入map描绘函数  -->
 <script src="{% static 'js/map_display.js' %}"></script>
 <!-- 引入功能函数 -->
@@ -23,7 +27,6 @@
 <!-- 引入垃圾桶位置信息库 -->
 <script src="{% static 'js/trash_can_info.js' %}"></script>
 <script>
-    console.log(get_all_data_now())
     map_display()
 </script>
 </body>

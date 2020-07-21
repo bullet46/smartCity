@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -152,7 +152,6 @@ function get_icons_by_data(data) {
     var harmful = str_to_percent(data[4])
     var temperature = parseFloat(data[5])
     var max_percent = Math.max(others, recyclable, kitchen, harmful)
-    console.log(window.isNaN(max_percent))
         if (temperature >= 50) {
             return 'static/icons/info_fire.png'
         }

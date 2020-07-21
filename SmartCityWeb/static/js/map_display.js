@@ -3,16 +3,25 @@ function map_display() {
         viewMode: '3D',
         turboMode: false,
         showIndoorMap: false,
-        defaultCursor: 'pointer',
-        showBuildingBlock: false,
+        defaultCursor: '',
+        showBuildingBlock: true,
+        buildingAnimation: true,
         zooms: [16, 20],
-        showLabel: true,
+        showLabel: false,
         zoom: 16,
         pitch: 55,
         rotation: -45,
         center: [113.928926, 22.571839],
         forceVector: true,
     });
+    map.addControl(new AMap.ControlBar({
+        showZoomBar: false,
+        showControlButton: true,
+        position: {
+            right: '10px',
+            top: '10px'
+        }
+    }))
     var facilities = [];
     var zoomStyleMapping1 = {
         14: 0,
@@ -27,7 +36,7 @@ function map_display() {
         var marker = new AMap.ElasticMarker({
             position: trash_can_info[i].position,
             zooms: [14, 20],
-            clickable:true,
+            clickable: true,
             styles: [{
                 icon: {
                     img: trash_can_info[i].icon,
@@ -50,7 +59,21 @@ function map_display() {
         facilities.push(marker);
     }
 
-    function refresh(){
+    function clicked() {
+        //创建信息窗口
+        var text = '        <iframe class="info_windows" id = \'info_windows\' src="/content/" width="100%" height="100%">\n' +
+            '        </iframe> '
+        var info_shower = document.getElementById('info_windows_container')
+        info_shower.innerHTML = text
+    }
+
+    function map_clicked() {
+        //关闭信息窗口
+        var info_shower = document.getElementById('info_windows_container')
+        info_shower.innerHTML = ''
+    }
+
+    function refresh() {
         // 仅仅提供device_id = 0 的刷新
         // 因为其他设备未接入
         var data = get_new_data(1);
@@ -58,7 +81,7 @@ function map_display() {
         var device_0 = new AMap.ElasticMarker({
             position: trash_can_info[0].position,
             zooms: [14, 20],
-            clickable:true,
+            clickable: true,
             styles: [{
                 icon: {
                     img: get_icons_by_data(data),
@@ -79,26 +102,23 @@ function map_display() {
             zoomStyleMapping: zoomStyleMapping1
         })
         facilities[0] = device_0
+        facilities[0].on('click', function (e) {
+            clicked()
+        })
     }
+
+    map.on('click', function (e) {
+            map_clicked()
+        }
+    )
 
     refresh();
     setInterval(function () {
-    }, 20000);
+        refresh();
+    }, 5000);
 
     map.add(facilities)
 
 
-    map.on('click', function (e) {
-        console.log(e.lnglat + '')
-    })
-    new AMap.Polygon({
-        cursor: 'pointer',
-        bubble: true,
-        map: map,
-        fillOpacity: 0.3,
-        strokeWeight: 1,
-        fillColor: 'green'
-
-    })
-
 }
+
