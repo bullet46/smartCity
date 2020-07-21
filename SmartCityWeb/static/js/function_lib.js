@@ -19,9 +19,9 @@ function get_now_time() {
 function str_to_percent(values) {
     try {
         percents = (1 - parseFloat(values) / 10) * 100
-        if (percents <0){
-            return 0
-        }else{
+        if (percents < 0) {
+            return 0.00
+        } else {
             return percents
         }
 
@@ -143,10 +143,31 @@ function get_all_data_now() {
     }
 }
 
-function reform_data_now(data_now) {
-    // 提取所有设备的最新状态
-    for (keys in data_now){
-
+function get_icons_by_data(data) {
+    // data内容 [时间，str(其它垃圾)，可回收，厨余垃圾，有害垃圾，温度，湿度]
+    // 注，垃圾均为距离，需要进行百分比转换
+    var others = str_to_percent(data[1])
+    var recyclable = str_to_percent(data[2])
+    var kitchen = str_to_percent(data[3])
+    var harmful = str_to_percent(data[4])
+    var temperature = parseFloat(data[5])
+    var max_percent = Math.max(others, recyclable, kitchen, harmful)
+    console.log(window.isNaN(max_percent))
+        if (temperature >= 50) {
+            return 'static/icons/info_fire.png'
+        }
+        if (max_percent <= 20) {
+            return 'static/icons/trash_20.png'
+        } else if (max_percent <= 40) {
+            return 'static/icons/trash_40.png'
+        } else if (max_percent <= 60) {
+            return 'static/icons/trash_60.png'
+        } else if (max_percent <= 80) {
+            return 'static/icons/trash_80.png'
+        } else if (max_percent <= 100) {
+            return 'static/icons/trash_100.png'
+        } else if (window.isNaN(max_percent) == true){
+            return 'static/icons/info_offline.png'
     }
 
 }

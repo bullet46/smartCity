@@ -1,17 +1,17 @@
 <!doctype html>
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>智能垃圾桶全局管理</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
     <!--  高德地图相关控件  -->
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://webapi.amap.com/maps?v=1.4.15&key=4538550d34f654818e8787060fe9bb16&plugin=Map3D,ElasticMarker"></script>
-    <!-- 引入图标路径库 -->
-    {% load static %}
-    <script src="{% static 'js/icon_definition.js' %}"></script>
+
 
 </head>
 <body>
@@ -20,6 +20,8 @@
 <script src="{% static 'js/map_display.js' %}"></script>
 <!-- 引入功能函数 -->
 <script src="{% static 'js/function_lib.js' %}"></script>
+<!-- 引入垃圾桶位置信息库 -->
+<script src="{% static 'js/trash_can_info.js' %}"></script>
 <script>
     console.log(get_all_data_now())
     map_display()
