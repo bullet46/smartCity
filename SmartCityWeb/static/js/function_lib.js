@@ -61,7 +61,7 @@ function get_init_data(device_id, date = null) {
     var data_init = new XMLHttpRequest();
 
     data_init.open('GET',
-        'http://127.0.0.1/API/?device_data_search_by_day={"device_id":{0},"date":"{1}"}'.format(device_id, date),
+        '/API/?device_data_search_by_day={"device_id":{0},"date":"{1}"}'.format(device_id, date),
         false)
     data_init.send(null)
     if (data_init.readyState == 4 && data_init.status == 200) {
@@ -79,7 +79,7 @@ function get_new_data(device_id) {
     //返回某个设备的最新状态
     //返回列表 其中内容为[时间，其它垃圾，可回收，厨余垃圾，有害垃圾，温度，湿度]
     var data_new = new XMLHttpRequest();
-    data_new.open('GET', 'http://127.0.0.1/API/?device_data_id_now=' + device_id.toString(), false)
+    data_new.open('GET', '/API/?device_data_id_now=' + device_id.toString(), false)
     data_new.send(null)
     var data_back_list = []
     if (data_new.readyState == 4 && data_new.status == 200) {
@@ -129,7 +129,7 @@ function get_all_data_now() {
     //通过接口获取目前所有设备的最新状态
     var data_init = new XMLHttpRequest();
     data_init.open('GET',
-        'http://127.0.0.1/API/?device_data_all_now',
+        '/API/?device_data_all_now',
         false)
     data_init.send(null)
     if (data_init.readyState == 4 && data_init.status == 200) {
@@ -145,28 +145,72 @@ function get_all_data_now() {
 
 function get_icons_by_data(data) {
     // data内容 [时间，str(其它垃圾)，可回收，厨余垃圾，有害垃圾，温度，湿度]
-    // 注，垃圾均为距离，需要进行百分比转换
-    var others = str_to_percent(data[1])
-    var recyclable = str_to_percent(data[2])
-    var kitchen = str_to_percent(data[3])
-    var harmful = str_to_percent(data[4])
+    // 注，垃圾均为百分比转换
+    var others = data[1]
+    var recyclable = data[2]
+    var kitchen = data[3]
+    var harmful = data[4]
     var temperature = parseFloat(data[5])
     var max_percent = Math.max(others, recyclable, kitchen, harmful)
-        if (temperature >= 50) {
-            return 'static/icons/info_fire.png'
-        }
-        if (max_percent <= 20) {
-            return 'static/icons/trash_20.png'
-        } else if (max_percent <= 40) {
-            return 'static/icons/trash_40.png'
-        } else if (max_percent <= 60) {
-            return 'static/icons/trash_60.png'
-        } else if (max_percent <= 80) {
-            return 'static/icons/trash_80.png'
-        } else if (max_percent <= 100) {
-            return 'static/icons/trash_100.png'
-        } else if (window.isNaN(max_percent) == true){
-            return 'static/icons/info_offline.png'
+    if (temperature >= 50) {
+        return 'static/icons/info_fire.png'
+    }
+    if (max_percent <= 20) {
+        return 'static/icons/trash_20.png'
+    } else if (max_percent <= 40) {
+        return 'static/icons/trash_40.png'
+    } else if (max_percent <= 60) {
+        return 'static/icons/trash_60.png'
+    } else if (max_percent <= 80) {
+        return 'static/icons/trash_80.png'
+    } else if (max_percent <= 100) {
+        return 'static/icons/trash_100.png'
+    } else if (window.isNaN(max_percent) == true) {
+        return 'static/icons/info_offline.png'
     }
 
+}
+
+function get_icons_by_data_single(data, area) {
+    // area 取值为 0-3
+    //代表 其它垃圾，可回收，厨余垃圾，有害垃圾
+    var temperature = parseFloat(data[5])
+    var percent = parseFloat(data[area + 1])
+    if (temperature >= 50) {
+        return '/static/icons/info_fire.png'
+    }
+    if (percent <= 20) {
+        return '/static/icons/trash_20.png'
+    } else if (percent <= 40) {
+        return '/static/icons/trash_40.png'
+    } else if (percent <= 60) {
+        return '/static/icons/trash_60.png'
+    } else if (percent <= 80) {
+        return '/static/icons/trash_80.png'
+    } else if (percent <= 100) {
+        return '/static/icons/trash_100.png'
+    } else if (window.isNaN(percent) == true) {
+        return '/static/icons/info_offline.png'
+    }
+}
+
+function change_image(data) {
+    var others =document.getElementById("other_can_img")
+    var recyclable = document.getElementById("recover_can_img")
+    var kitchen = document.getElementById("kitchen_can_img")
+    var harmful = document.getElementById("harm_can_img")
+    others.src = get_icons_by_data_single(data,0)
+    recyclable.src = get_icons_by_data_single(data,1)
+    kitchen.src = get_icons_by_data_single(data,2)
+    harmful.src =get_icons_by_data_single(data,3)
+    var others_info = document.getElementById("other_can_info")
+    var recyclable_info = document.getElementById("recover_can_info")
+    var kitchen_info = document.getElementById("kitchen_can_info")
+    var harmful_info = document.getElementById("harm_can_info")
+    console.log('123')
+    console.log(others_info)
+    others_info.innerText = parseInt(data[1]) + ' %'
+    recyclable_info.innerHTML = parseInt(data[2]) + ' %'
+    kitchen_info.innerHTML = parseInt(data[3])+ ' %'
+    harmful_info.innerHTML = parseInt(data[4])+ ' %'
 }

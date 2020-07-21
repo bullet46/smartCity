@@ -113,11 +113,12 @@ function map_display() {
     )
 
     refresh();
+    map.add(facilities)
     setInterval(function () {
         refresh();
+        map.add(facilities)
     }, 5000);
 
-    map.add(facilities)
 
 
 }

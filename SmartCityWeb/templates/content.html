@@ -17,21 +17,27 @@
 
 <body>
 <div class="box">
-    <div class="trash_can_info" id="other_can">
-        <img class="trash_can_img" src="{% static 'icons/trash_20.png' %} ">
-        <p>20%</p>
+    <div class="trash_can_info">
+        <img class="trash_can_img" id="other_can_img" src="{% static 'icons/info_offline.png' %}">
+        <p style="font-size: 10px;margin:5px">其它垃圾</p>
+        <p style="font-size: 16px;margin: 2px" id="other_can_info">20%</p>
     </div>
-    <div class="trash_can_info" id="recover_can">
-        <img class="trash_can_img" src="{% static 'icons/trash_40.png' %}">
-        <p>40%</p>
+    <div class="trash_can_info">
+        <img class="trash_can_img" id="recover_can_img" src="{% static 'icons/info_offline.png' %}">
+        <p style="font-size: 5px;margin-top: 5px;margin-left: 0px;margin-right: 0px">可回收垃圾</p>
+        <p style="font-size: 16px;margin: 2px" id="recover_can_info">20%</p>
     </div>
-    <div class="trash_can_info" id="kitchen_can">
-        <img class="trash_can_img" src="{% static 'icons/trash_60.png' %}">
-        <p>60%</p>
+    <div class="trash_can_info">
+        <img class="trash_can_img" id="kitchen_can_img" src="{% static 'icons/info_offline.png' %}">
+        <p style="font-size: 10px;margin: 5px">厨余垃圾</p>
+        <p></p>
+        <p style="font-size: 16px;margin: 2px" id="kitchen_can_info">20%</p>
     </div>
-    <div class="trash_can_info" id="harm_can">
-        <img class="trash_can_img" src="{% static 'icons/trash_100.png' %}">
-        <p>80%</p>
+    <div class="trash_can_info">
+        <img class="trash_can_img" id="harm_can_img" src="{% static 'icons/info_offline.png' %}">
+        <p style="font-size: 10px;margin: 5px">有害垃圾</p>
+        <p></p>
+        <p style="font-size: 16px;margin: 2px" id="harm_can_info">20%</p>
     </div>
 </div>
 <p></p>
@@ -55,10 +61,10 @@
 <script type="text/javascript" src="{% static 'js/chart_graph.js' %}"></script>
 
 
-
 <script type="text/javascript">
-    $(function(){
-        chart_recommend([20,40,20,10])
+    $(function () {
+        change_img_text(1)
+        chart_recommend([20, 40, 20, 10])
         chart_of_trash(1);
         chart_th_history(1)
     });

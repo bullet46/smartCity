@@ -159,6 +159,7 @@ function chart_of_trash(device_id) {
     function refresh(device_id, data_now) {
         // 刷新并更新数据
         new_data = get_new_data(device_id);
+        change_image(new_data)
         if (new_data ==null){
             return null
         }
@@ -169,13 +170,13 @@ function chart_of_trash(device_id) {
         data_now['harmful'].push([last_state_time, new_data[4]]);
         chart.setOption({
                 series: [{
-                    data: data_now['others']
-                }, {
-                    data: data_now['recyclable']
-                }, {
                     data: data_now['kitchen']
                 }, {
                     data: data_now['harmful']
+                }, {
+                    data: data_now['others']
+                }, {
+                    data: data_now['recyclable']
                 }]
             }
         )
@@ -386,8 +387,9 @@ function chart_recommend(recommends) {
     chart_recommend.setOption(option);
 }
 
-function now_state(device_id) {
+function change_img_text(device_id) {
     var now_data = get_new_data(device_id)
+    change_image(now_data)
 
 
 }
