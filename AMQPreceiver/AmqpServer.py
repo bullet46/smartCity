@@ -33,7 +33,7 @@ class AmqpClient(MessagingHandler):
 
     def on_start(self, event):
         url = "amqps://1887392987831227.iot-amqp.cn-shanghai.aliyuncs.com"
-        accessKey = "LTAI4GEgbPDv4Knb2Zp1Pmut"
+        accessKey = ""
         accessSecret = "DM3bNYotPrhoqrKGdajnQcISgzxdeh"
         consumerGroupId = "DEFAULT_GROUP"
         # iotInstanceId：购买的实例请填写实例ID，公共实例请填空字符串""。
